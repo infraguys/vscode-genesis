@@ -1,0 +1,172 @@
+{
+  "name": "genesis-dev",
+  "displayName": "genesis-dev",
+  "description": "Genesis VSCode extension",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "genesis-dev",
+          "title": "Genesis DevTools",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "genesis-dev": [
+        {
+          "id": "installations",
+          "name": "Installations"
+        },
+        {
+          "id": "registry",
+          "name": "Registry"
+        },
+        {
+          "id": "constructor",
+          "name": "Constructor"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "genesis-dev.addInstallation",
+        "title": "Add Installation",
+        "icon": {
+          "light": "resources/light/plus.svg",
+          "dark": "resources/dark/plus.svg"
+        }
+      },
+      {
+        "command": "genesis-dev.editInstallation",
+        "title": "Edit Installation",
+        "icon": {
+          "light": "resources/light/plus.svg",
+          "dark": "resources/dark/plus.svg"
+        }
+      },
+      {
+        "command": "genesis-dev.settings",
+        "title": "Settings",
+        "icon": {
+          "light": "resources/light/settings.svg",
+          "dark": "resources/dark/settings.svg"
+        }
+      },
+      {
+        "command": "genesis-dev.refresh",
+        "title": "Refresh",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "genesis-dev.showLogs",
+        "title": "Show logs",
+        "icon": {
+          "light": "resources/light/document.svg",
+          "dark": "resources/dark/document.svg"
+        }
+      },
+      {
+        "command": "genesis-dev.restart",
+        "title": "Restart",
+        "icon": {
+          "light": "resources/light/document.svg",
+          "dark": "resources/dark/document.svg"
+        }
+      },
+      {
+        "command": "genesis-dev.start",
+        "title": "Start",
+        "icon": {
+          "light": "resources/light/document.svg",
+          "dark": "resources/dark/document.svg"
+        }
+      },
+      {
+        "command": "genesis-dev.stop",
+        "title": "Stop",
+        "icon": {
+          "light": "resources/light/document.svg",
+          "dark": "resources/dark/document.svg"
+        }
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "genesis-dev.addInstallation",
+          "when": "view == installations",
+          "group": "navigation"
+        },
+        {
+          "command": "genesis-dev.settings",
+          "when": "view == installations",
+          "group": "navigation"
+        },
+        {
+          "command": "genesis-dev.refresh",
+          "when": "view == installations",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "genesis-dev.refresh",
+          "when": "view == installations && viewItem == installation",
+          "group": "inline"
+        },
+        {
+          "command": "genesis-dev.showLogs",
+          "when": "view == installations && viewItem == installation",
+          "group": "1_actions"
+        },
+        {
+          "command": "genesis-dev.restart",
+          "when": "view == installations && viewItem == installation",
+          "group": "1_actions"
+        },
+        {
+          "command": "genesis-dev.start",
+          "when": "view == installations && viewItem == installation",
+          "group": "1_actions"
+        },
+        {
+          "command": "genesis-dev.stop",
+          "when": "view == installations && viewItem == installation",
+          "group": "1_actions"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.100.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "eslint": "^9.25.1",
+    "typescript": "^5.8.3",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}

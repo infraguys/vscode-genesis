@@ -124,27 +124,27 @@
       "view/item/context": [
         {
           "command": "genesis-dev.refresh",
-          "when": "view == installations && viewItem == installation",
+          "when": "view == installations && (viewItem == installation || viewItem == service)",
           "group": "inline"
         },
         {
           "command": "genesis-dev.showLogs",
-          "when": "view == installations && viewItem == installation",
+          "when": "view == installations && (viewItem == installation || viewItem == service)",
           "group": "1_actions"
         },
         {
           "command": "genesis-dev.restart",
-          "when": "view == installations && viewItem == installation",
+          "when": "view == installations && (viewItem == installation || viewItem == service)",
           "group": "1_actions"
         },
         {
           "command": "genesis-dev.start",
-          "when": "view == installations && viewItem == installation",
+          "when": "view == installations && (viewItem == installation || viewItem == service)",
           "group": "1_actions"
         },
         {
           "command": "genesis-dev.stop",
-          "when": "view == installations && viewItem == installation",
+          "when": "view == installations && (viewItem == installation || viewItem == service)",
           "group": "1_actions"
         }
       ]

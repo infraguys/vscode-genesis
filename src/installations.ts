@@ -120,16 +120,20 @@ export class InstallationsTreeDataProvider implements vscode.TreeDataProvider<In
   }
 
   refresh(): void {
-	let services = [
-		new InstallationItem('gc-user-api', '', 'status-ok.svg'),
-		new InstallationItem('gc-orch-api', '', 'status-ok.svg'),
-		new InstallationItem('gc-gservice', '', 'status-failed.svg'),
-		new InstallationItem('gc-agent', '', 'status-ok.svg'),
-	]
+    let services = [
+      new ServiceItem('gc-user-api', '', 'status-ok.svg'),
+      new ServiceItem('gc-orch-api', '', 'status-ok.svg'),
+      new ServiceItem('gc-gservice', '', 'status-failed.svg'),
+      new ServiceItem('gc-agent', '', 'status-ok.svg'),
+    ]
+
+    let nodes = [
+      new NodeItem('bootstrap', '10.20.0.2', undefined, services),
+    ]
 
     // Здесь загрузите ваши установки
     this.installations = [
-      new InstallationItem('10.20.0.2', 'connected', undefined, services),
+      new InstallationItem('10.20.0.2', 'connected', undefined, nodes),
       new InstallationItem('10.130.0.2', 'disconnected'),
     ];
     this._onDidChangeTreeData.fire(undefined);
@@ -153,8 +157,8 @@ class InstallationItem extends vscode.TreeItem {
 
   constructor(
     public readonly label: string,
-    private version: string,
-	private icon?: string,
+    public readonly description: string,
+	  public readonly iconName?: string,
     children?: InstallationItem[]
   ) {
     super(
@@ -162,21 +166,54 @@ class InstallationItem extends vscode.TreeItem {
       children ? vscode.TreeItemCollapsibleState.Expanded : vscode.TreeItemCollapsibleState.None
     );
     this.children = children;
-    this.tooltip = `${this.label}-${this.version}`;
-    this.description = this.version;
+    this.tooltip = `${this.label}-${this.description}`;
+    this.description = this.description;
     this.contextValue = 'installation';
 
-	if (icon) {
+	if (iconName) {
 		this.iconPath = {
-			light: vscode.Uri.file(path.join(__filename, '..', '..', 'resources', 'light', icon)),
-			dark: vscode.Uri.file(path.join(__filename, '..', '..', 'resources', 'dark', icon))
+			light: vscode.Uri.file(path.join(__filename, '..', '..', 'resources', 'light', iconName)),
+			dark: vscode.Uri.file(path.join(__filename, '..', '..', 'resources', 'dark', iconName))
 		}
 	}
 
   }
+}
 
-	// iconPath = {
-	// 	light: vscode.Uri.file(path.join(__filename, '..', '..', 'resources', 'light', 'plus.svg')),
-	// 	dark: vscode.Uri.file(path.join(__filename, '..', '..', 'resources', 'dark', 'plus.svg'))
-	// };
+
+class NodeItem extends InstallationItem {
+
+  constructor(
+    public readonly label: string,
+    public readonly description: string,
+	  public readonly iconName?: string,
+    children?: InstallationItem[]
+  ) {
+      super(
+        label,
+        description,
+        iconName,
+        children
+      );
+      this.contextValue = 'node';
+  }
+}
+
+
+class ServiceItem extends InstallationItem {
+
+  constructor(
+    public readonly label: string,
+    public readonly description: string,
+	  public readonly iconName?: string,
+    children?: InstallationItem[]
+  ) {
+      super(
+        label,
+        description,
+        iconName,
+        children
+      );
+      this.contextValue = 'service';
+  }
 }
